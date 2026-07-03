@@ -187,13 +187,8 @@
 <div class="wrap">
 
   <header>
-    <div class="eyebrow">Geographic Extent Explorer / 都道府県データ実験　<span style="color:var(--text-dim)">v1.9</span></div>
-    <h1>面積で1位は北海道。<br>じゃあ<span class="accent">「範囲」</span>で1位はどこ？</h1>
-    <p class="lede">
-      各都道府県の最東西南北端の座標から、すっぽり収まる<b>矩形（緯度経度のバウンディングボックス）</b>を計算し、
-      その広さを実際の面積と比べました。離島を多く抱える都道府県は、実面積が小さくても
-      「広がり」だけは桁違いになる――という現象を、地図とランキング表で確認できます。
-    </p>
+    <div class="eyebrow">Geographic Extent Explorer / 都道府県データ実験　<span style="color:var(--text-dim)">v2.1</span></div>
+    <h1>都道府県の<span class="accent">「広さ」</span>一覧</h1>
   </header>
 
   <section class="stats" id="statCards"></section>
@@ -356,7 +351,7 @@ const byName = {}; DATA.forEach(d=>byName[d.name]=d);
 /* ================= STAT CARDS ================= */
 const statEl = document.getElementById('statCards');
 const topArea = byArea[0], topBox = byBox[0];
-const ratio = (topBox.boxArea/topArea.area).toFixed(1);
+const ratio = (topBox.boxArea/topBox.area).toFixed(1);
 const ratioVsHokkaido = (topBox.boxArea/topArea.area).toFixed(0);
 statEl.innerHTML = `
   <div class="stat-card area">
