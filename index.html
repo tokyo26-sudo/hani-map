@@ -187,7 +187,7 @@
 <div class="wrap">
 
   <header>
-    <div class="eyebrow">Geographic Extent Explorer / 都道府県データ実験　<span style="color:var(--text-dim)">v1.8</span></div>
+    <div class="eyebrow">Geographic Extent Explorer / 都道府県データ実験　<span style="color:var(--text-dim)">v1.9</span></div>
     <h1>面積で1位は北海道。<br>じゃあ<span class="accent">「範囲」</span>で1位はどこ？</h1>
     <p class="lede">
       各都道府県の最東西南北端の座標から、すっぽり収まる<b>矩形（緯度経度のバウンディングボックス）</b>を計算し、
@@ -762,18 +762,6 @@ captureBtn.addEventListener('click', async ()=>{
 
     const ctx = canvas.getContext('2d');
 
-    // TEMP DIAGNOSTIC: always draw a bright magenta square in the top-left
-    // corner, no matter what. If this doesn't show up in the downloaded PNG,
-    // the problem is that our drawing isn't reaching the exported canvas at
-    // all (not a coordinate-math problem) — remove once the real bug is found.
-    ctx.save();
-    ctx.fillStyle = '#ff00ff';
-    ctx.fillRect(10, 10, 60, 60);
-    ctx.strokeStyle = '#000000';
-    ctx.lineWidth = 3;
-    ctx.strokeRect(10, 10, 60, 60);
-    ctx.restore();
-
     if(overlayGeom){
       const {x1,y1,x2,y2,pts} = overlayGeom;
       if([x1,y1,x2,y2].every(Number.isFinite)){
@@ -799,8 +787,6 @@ captureBtn.addEventListener('click', async ()=>{
         console.warn('[hani-map] overlay coords not finite, skipped drawing', overlayGeom);
       }
     }
-    console.log('%c[hani-map] capture debug', 'color:#e3b23c;font-weight:bold;font-size:13px',
-      {canvasSize:[canvas.width, canvas.height], overlayGeom, mapSize: osmMap.getSize(), currentSelectionData});
 
     const label = (selectedName || 'japan').replace(/[都道府県]$/,'');
     const link = document.createElement('a');
