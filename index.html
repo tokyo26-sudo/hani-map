@@ -187,7 +187,7 @@
 <div class="wrap">
 
   <header>
-    <div class="eyebrow">Geographic Extent Explorer / 都道府県データ実験　<span style="color:var(--text-dim)">v1.7</span></div>
+    <div class="eyebrow">Geographic Extent Explorer / 都道府県データ実験　<span style="color:var(--text-dim)">v1.8</span></div>
     <h1>面積で1位は北海道。<br>じゃあ<span class="accent">「範囲」</span>で1位はどこ？</h1>
     <p class="lede">
       各都道府県の最東西南北端の座標から、すっぽり収まる<b>矩形（緯度経度のバウンディングボックス）</b>を計算し、
@@ -743,10 +743,19 @@ captureBtn.addEventListener('click', async ()=>{
     if(osmRect) osmMap.removeLayer(osmRect);
     osmMarkers.forEach(m=>osmMap.removeLayer(m));
 
-    const canvas = await html2canvas(target, {
+    const rawCanvas = await html2canvas(target, {
       useCORS:true, allowTaint:false, backgroundColor:'#0a1826',
       scale:1, logging:false
     });
+
+    // Draw onto a brand-new canvas rather than reusing html2canvas's own canvas —
+    // html2canvas can leave the context's clip/transform state in an odd place
+    // after it finishes, which silently swallows anything drawn afterwards.
+    const canvas = document.createElement('canvas');
+    canvas.width = rawCanvas.width;
+    canvas.height = rawCanvas.height;
+    const baseCtx = canvas.getContext('2d');
+    baseCtx.drawImage(rawCanvas, 0, 0);
 
     if(osmRect) osmRect.addTo(osmMap);
     osmMarkers.forEach(m=>m.addTo(osmMap));
