@@ -187,7 +187,7 @@
 <div class="wrap">
 
   <header>
-    <div class="eyebrow">Geographic Extent Explorer / 都道府県データ実験　<span style="color:var(--text-dim)">v2.2</span></div>
+    <div class="eyebrow">Geographic Extent Explorer / 都道府県データ実験　<span style="color:var(--text-dim)">v2.3</span></div>
     <h1>都道府県の<span class="accent">「広さ」</span>一覧</h1>
   </header>
 
@@ -352,7 +352,7 @@ const byName = {}; DATA.forEach(d=>byName[d.name]=d);
 const statEl = document.getElementById('statCards');
 const topArea = byArea[0], topBox = byBox[0];
 const ratio = (topBox.boxArea/topBox.area).toFixed(1);
-const ratioVsHokkaido = (topBox.boxArea/topArea.area).toFixed(0);
+const ratioVsHokkaidoBox = (topBox.boxArea/topArea.boxArea).toFixed(1);
 statEl.innerHTML = `
   <div class="stat-card area">
     <div class="stat-label">実面積 1位</div>
@@ -366,8 +366,8 @@ statEl.innerHTML = `
   </div>
   <div class="punch">
     <b>${topBox.name}</b>の「範囲」は約 <b>${Math.round(topBox.boxArea).toLocaleString()} km²</b> ―
-    実面積（${topBox.area.toLocaleString()} km²）の <b>約${ratio}倍</b>、そして実面積1位の${topArea.name}（${topArea.area.toLocaleString()} km²）と比べても
-    <b>約${ratioVsHokkaido}倍</b>の広さになる。
+    実面積（${topBox.area.toLocaleString()} km²）の <b>約${ratio}倍</b>、そして実面積1位の${topArea.name}（${topArea.area.toLocaleString()} km²）の範囲面積（${Math.round(topArea.boxArea).toLocaleString()} km²）と比べても
+    <b>約${ratioVsHokkaidoBox}倍</b>の広さになる。理由は南鳥島・沖ノ鳥島など、本土から遠く離れた離島が東西南北端を作っているから。
   </div>
 `;
 
